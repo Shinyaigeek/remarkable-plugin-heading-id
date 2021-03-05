@@ -1,0 +1,16 @@
+{
+  "name": "remarkable-plugin-heading-id",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Shinyaigeek/remarkable-plugin-heading-id.git",
+  "author": "shinyaigeek <PhilisPaxil@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bili": "^5.0.5",
+    "remarkable": "^2.0.1",
+    "typescript": "^4.2.2"
+  },
+  "peerDependencies": {
+    "remarkable": "2.x"
+  }
+}
