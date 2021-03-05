@@ -20,6 +20,23 @@
       "prettier --write"
     ]
   },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "transform": {
+      "^.+\\.ts$": "ts-jest"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
+    },
+    "testMatch": [
+      "**/*.test.ts"
+    ]
+  },
   "devDependencies": {
     "@types/jest": "^26.0.20",
     "@types/remarkable": "^2.0.1",
