@@ -1,10 +1,21 @@
-import Remarkable, { HeadingOpenToken, TagToken, TextToken } from "remarkable/lib";
-import { idx, incrementIdx } from "./context";
+import Remarkable, {
+  HeadingOpenToken,
+  TagToken,
+  TextToken,
+} from "remarkable/lib";
+import { idx, incrementIdx, resetIdx } from "./context";
 import { isHeadingOpenToken } from "./utils/isHeadingOpenToken/isHeadingOpenToken";
 import { isInline } from "./utils/isInline/isInline";
 
+const headings = ["h1", "h2", "h3", "h4", "h5", "h6"] as const;
+
 interface PluginOptions {
-  id?: (level: 1 | 2 | 3 | 4 | 5 | 6, content: string, idx: number) => string;
+  createId?: (
+    level: 1 | 2 | 3 | 4 | 5 | 6,
+    content: string,
+    idx: number
+  ) => string;
+  targets?: typeof headings[number][];
 }
 
 export const remarkablePluginHeadingId = (
@@ -12,6 +23,10 @@ export const remarkablePluginHeadingId = (
   options: PluginOptions = {}
 ) => {
   const renderer = md.renderer.rules.heading_open;
+
+  const targets = options.targets ?? headings;
+
+  resetIdx();
 
   md.renderer.rules.heading_open = (
     tokens: HeadingOpenToken[],
@@ -33,28 +48,42 @@ export const remarkablePluginHeadingId = (
     if (!isInline(textToken)) {
       throw new Error(
         "remarkablePluginHeadingId should take text token next to heading open token, but got" +
-        JSON.stringify(textToken)
+          JSON.stringify(textToken)
       );
     }
 
     const headingTagContent = textToken.content ?? "";
 
     const result = (() => {
-      if (!options.id) {
-        return defaultResult.replace(">", ` id="${headingTagContent}">`);
-      } else {
-        return defaultResult.replace(
+      const hLevel = `h${headingOpenToken.hLevel}` as typeof headings[number];
+
+      if (!targets.includes(hLevel)) {
+        return defaultResult;
+      }
+
+      if (!options.createId) {
+        const result = defaultResult.replace(
           ">",
-          ` id="${options.id(
+          ` id="${headingTagContent}">`
+        );
+
+        incrementIdx();
+
+        return result;
+      } else {
+        const result = defaultResult.replace(
+          ">",
+          ` id="${options.createId(
             headingOpenToken.hLevel as 1 | 2 | 3 | 4 | 5 | 6,
             headingTagContent,
             idx
           )}">`
         );
+
+        incrementIdx();
+        return result;
       }
     })();
-
-    incrementIdx();
 
     return result;
   };
