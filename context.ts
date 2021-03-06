@@ -3,4 +3,8 @@ const incrementIdx = () => {
   idx++;
 };
 
-export { idx, incrementIdx };
+const resetIdx = () => {
+  idx = 0;
+}
+
+export { idx, incrementIdx, resetIdx };

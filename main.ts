@@ -3,7 +3,7 @@ import Remarkable, {
   TagToken,
   TextToken,
 } from "remarkable/lib";
-import { idx, incrementIdx } from "./context";
+import { idx, incrementIdx, resetIdx } from "./context";
 import { isHeadingOpenToken } from "./utils/isHeadingOpenToken/isHeadingOpenToken";
 import { isInline } from "./utils/isInline/isInline";
 
@@ -25,6 +25,8 @@ export const remarkablePluginHeadingId = (
   const renderer = md.renderer.rules.heading_open;
 
   const targets = options.targets ?? headings;
+
+  resetIdx();
 
   md.renderer.rules.heading_open = (
     tokens: HeadingOpenToken[],
