@@ -4,7 +4,7 @@ import { isHeadingOpenToken } from "./utils/isHeadingOpenToken/isHeadingOpenToke
 import { isInline } from "./utils/isInline/isInline";
 
 interface PluginOptions {
-  id?: (level: 1 | 2 | 3 | 4 | 5 | 6, content: string, idx: number) => string;
+  createId?: (level: 1 | 2 | 3 | 4 | 5 | 6, content: string, idx: number) => string;
 }
 
 export const remarkablePluginHeadingId = (
@@ -40,12 +40,12 @@ export const remarkablePluginHeadingId = (
     const headingTagContent = textToken.content ?? "";
 
     const result = (() => {
-      if (!options.id) {
+      if (!options.createId) {
         return defaultResult.replace(">", ` id="${headingTagContent}">`);
       } else {
         return defaultResult.replace(
           ">",
-          ` id="${options.id(
+          ` id="${options.createId(
             headingOpenToken.hLevel as 1 | 2 | 3 | 4 | 5 | 6,
             headingTagContent,
             idx
