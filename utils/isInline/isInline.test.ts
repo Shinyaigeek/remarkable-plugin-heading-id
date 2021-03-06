@@ -1,7 +1,7 @@
 import { HeadingOpenToken, LinkOpenToken, TextToken } from "remarkable/lib";
-import { isTextToken } from "./isTextToken";
+import { InlineToken, isInline } from "./isInline";
 
-describe("isTextToken", () => {
+describe("isInline", () => {
   test("with <h1 /> open", () => {
     const h1OpenToken: HeadingOpenToken = {
       type: "heading_open",
@@ -9,9 +9,8 @@ describe("isTextToken", () => {
       level: 0,
     };
 
-    expect(isTextToken(h1OpenToken)).toBeFalsy();
+    expect(isInline(h1OpenToken)).toBeFalsy();
   });
-
 
   test("with <h2 /> open", () => {
     const h1OpenToken: HeadingOpenToken = {
@@ -20,27 +19,25 @@ describe("isTextToken", () => {
       level: 0,
     };
 
-    expect(isTextToken(h1OpenToken)).toBeFalsy();
+    expect(isInline(h1OpenToken)).toBeFalsy();
   });
-
 
   test("with <a /> open", () => {
     const linkOpenToken: LinkOpenToken = {
       type: "link_open",
       level: 0,
-      href: "https://shinyaigeek.dev"
+      href: "https://shinyaigeek.dev",
     };
 
-    expect(isTextToken(linkOpenToken)).toBeFalsy();
+    expect(isInline(linkOpenToken)).toBeFalsy();
   });
 
-
   test("with text open", () => {
-    const h1OpenToken: TextToken = {
-      type: "text",
+    const h1OpenToken: InlineToken = {
+      type: "inline",
       level: 0,
     };
 
-    expect(isTextToken(h1OpenToken)).toBeTruthy();
+    expect(isInline(h1OpenToken)).toBeTruthy();
   });
 });
