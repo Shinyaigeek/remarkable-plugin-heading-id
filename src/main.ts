@@ -3,7 +3,7 @@ import Remarkable, {
   TagToken,
   TextToken,
 } from "remarkable/lib";
-import { idx, incrementIdx, resetIdx } from "./context";
+import { idx, incrementIdx, resetIdx } from "../context";
 import { isHeadingOpenToken } from "./utils/isHeadingOpenToken/isHeadingOpenToken";
 import { isInline } from "./utils/isInline/isInline";
 

@@ -1,7 +1,13 @@
 {
   "name": "remarkable-plugin-heading-id",
   "version": "1.0.0",
-  "main": "index.js",
+  "types": "dist/main.d.ts",
+  "exports": {
+    "import": "./dist/main.esm.min.js",
+    "require": "./dist/main.min.js",
+    "node": "./dist/main.min.js",
+    "default": "./dist/main.min.js"
+  },
   "repository": "https://github.com/Shinyaigeek/remarkable-plugin-heading-id.git",
   "author": "shinyaigeek <PhilisPaxil@gmail.com>",
   "license": "MIT",
@@ -47,10 +53,28 @@
     "pinst": "^2.1.6",
     "prettier": "^2.2.1",
     "remarkable": "^2.0.1",
+    "rollup-plugin-typescript2": "^0.30.0",
     "ts-jest": "^26.5.3",
     "typescript": "^4.2.2"
   },
   "peerDependencies": {
     "remarkable": "2.x"
-  }
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "yarn.lock",
+    "LICENSE",
+    "tsconfig.json"
+  ],
+  "keywords": [
+    "remarkable",
+    "remarkable-plugin",
+    "Twitter",
+    "tweet",
+    "markdown",
+    "plugin",
+    "parser",
+    "md"
+  ]
 }
